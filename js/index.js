@@ -9,8 +9,9 @@ async function exec() {
   const dayPath = path.join(process.cwd(), `${day}`);
   const year = new Date().getFullYear();
   try {
-    const { part1: fn } = await import(path.join(dayPath, `main.js`));
-    const { part2: fn2 } = await import(path.join(dayPath, `main.js`));
+    const { part1: fn, part2: fn2 } = await import(
+      path.join(dayPath, `main.js`)
+    );
     let input = "";
     if (mode === "test") {
       input = readFileSync(

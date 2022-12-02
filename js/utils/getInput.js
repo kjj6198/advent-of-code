@@ -4,7 +4,7 @@ export default function getInput(year = 2022, day) {
   const data = [];
   return new Promise((resolve) => {
     const target = new URL(
-      `/${year}/day/${day}/input`,
+      `/${year}/day/${day.replace("day", "")}/input`,
       `https://adventofcode.com`
     );
 
