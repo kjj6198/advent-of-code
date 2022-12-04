@@ -22,6 +22,7 @@ export function part1(input) {
   return [sum, input];
 }
 
+// find common letter more efficiently?
 export function part2(input) {
   const group = input.split("\n");
   let sum = 0;
