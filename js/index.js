@@ -20,7 +20,7 @@ async function exec() {
           : path.join(dayPath, "input.txt")
       ).toString("utf-8");
     } else {
-      input = await getInput(year, day).then((data) => data.toString());
+      input = await getInput(year, day).then((data) => data.toString().trim());
     }
 
     const [answer, computed] = fn(input);
