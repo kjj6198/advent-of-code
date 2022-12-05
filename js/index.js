@@ -19,6 +19,12 @@ async function exec() {
           ? path.join(dayPath, "test.txt")
           : path.join(dayPath, "input.txt")
       ).toString("utf-8");
+    } else if (mode === "input") {
+      input = readFileSync(
+        mode === "test"
+          ? path.join(dayPath, "test.txt")
+          : path.join(dayPath, "input.txt")
+      ).toString("utf-8");
     } else {
       input = await getInput(year, day).then((data) => data.toString().trim());
     }
