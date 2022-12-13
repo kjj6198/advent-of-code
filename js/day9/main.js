@@ -1,3 +1,4 @@
+import { writeFileSync } from "fs";
 class Point {
   constructor(x, y) {
     this.x = x;
@@ -130,6 +131,29 @@ export function part2(direction) {
       );
     }
   });
-
+  let minX = Number.MAX_VALUE;
+  let minY = Number.MAX_VALUE;
+  let maxX = Number.MIN_VALUE;
+  let maxY = Number.MIN_VALUE;
+  for (const v of set.values()) {
+    const [x, y] = v.split(" ");
+    minX = Math.min(minX, Number(x));
+    maxX = Math.max(maxX, Number(x));
+    minY = Math.min(minY, Number(y));
+    maxY = Math.max(maxY, Number(y));
+  }
+  // draw the result anyway
+  let screen = "";
+  for (let i = minY - 50; i <= maxY + 50; i++) {
+    for (let j = minX - 50; j <= maxX + 50; j++) {
+      if (set.has(`${j} ${i}`)) {
+        screen += "#";
+      } else {
+        screen += ".";
+      }
+    }
+    screen += "\n";
+  }
+  writeFileSync("./result.txt", screen);
   return set.size;
 }
