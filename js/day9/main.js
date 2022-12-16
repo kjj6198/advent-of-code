@@ -6,12 +6,9 @@ class Point {
   }
 
   isNeighbor(point) {
-    return (
-      (point.x === this.x ||
-        point.x - 1 === this.x ||
-        point.x + 1 === this.x) &&
-      (point.y === this.y || point.y - 1 === this.y || point.y + 1 === this.y)
-    );
+    const vec = new Point(point.x - this.x, point.y - this.y);
+
+    return vec.length() <= 1;
   }
 
   add(x, y) {
@@ -94,9 +91,34 @@ export function part1(input) {
     for (let i = 0; i < Number(step); i++) {
       rope.move(d);
 
-      set.add(`(${rope.tail.x}, ${rope.tail.y})`);
+      set.add(`${rope.tail.x} ${rope.tail.y}`);
     }
   });
+
+  let minX = Number.MAX_VALUE;
+  let minY = Number.MAX_VALUE;
+  let maxX = Number.MIN_VALUE;
+  let maxY = Number.MIN_VALUE;
+  for (const v of set.values()) {
+    const [x, y] = v.split(" ");
+    minX = Math.min(minX, Number(x));
+    maxX = Math.max(maxX, Number(x));
+    minY = Math.min(minY, Number(y));
+    maxY = Math.max(maxY, Number(y));
+  }
+  // draw the result anyway
+  let screen = "";
+  for (let i = minY - 5; i <= maxY + 5; i++) {
+    for (let j = minX - 5; j <= maxX + 5; j++) {
+      if (set.has(`${j} ${i}`)) {
+        screen += "#";
+      } else {
+        screen += ".";
+      }
+    }
+    screen += "\n";
+  }
+  writeFileSync("./result2.txt", screen);
 
   return [set.size, direction];
 }
@@ -144,8 +166,8 @@ export function part2(direction) {
   }
   // draw the result anyway
   let screen = "";
-  for (let i = minY - 50; i <= maxY + 50; i++) {
-    for (let j = minX - 50; j <= maxX + 50; j++) {
+  for (let i = minY - 5; i <= maxY + 5; i++) {
+    for (let j = minX - 5; j <= maxX + 5; j++) {
       if (set.has(`${j} ${i}`)) {
         screen += "#";
       } else {
