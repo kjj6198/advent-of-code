@@ -4,27 +4,25 @@ import getInput from "./utils/getInput.js";
 import sumbit from "./utils/submit.js";
 
 async function exec() {
+  const year = new Date().getFullYear().toString();
   const mode = process.argv[2];
   const day = process.argv[3];
-  const dayPath = path.join(process.cwd(), `${day}`);
-  const year = new Date().getFullYear();
+  const dayPath = path.join(process.cwd(), year, `${day}`);
   try {
-    const { part1: fn, part2: fn2 } = await import(
-      path.join(dayPath, `main.js`)
-    );
+    const { part1: fn, part2: fn2 } = await import(path.join(dayPath, `main.js`));
     let input = "";
     if (mode === "test") {
       input = readFileSync(
-        mode === "test"
-          ? path.join(dayPath, "test.txt")
-          : path.join(dayPath, "input.txt")
-      ).toString("utf-8");
+        mode === "test" ? path.join(dayPath, "test.txt") : path.join(dayPath, "input.txt"),
+      )
+        .toString("utf-8")
+        .trim();
     } else if (mode === "input") {
       input = readFileSync(
-        mode === "test"
-          ? path.join(dayPath, "test.txt")
-          : path.join(dayPath, "input.txt")
-      ).toString("utf-8");
+        mode === "test" ? path.join(dayPath, "test.txt") : path.join(dayPath, "input.txt"),
+      )
+        .toString("utf-8")
+        .trim();
     } else {
       input = await getInput(year, day).then((data) => data.toString().trim());
     }
