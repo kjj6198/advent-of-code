@@ -34,32 +34,8 @@ export function part1(input) {
   const sum = files
     .filter((f) => f !== ".")
     .reduce((acc, f, i) => acc + Number(f) * i, 0);
-  return [sum, files2];
+  return [sum, input];
 }
 
 
-function defrag(files) {
-
-}
-
-export function part2(input) {
-  const files = [];
-  let id = 0;
-  for (let i = 0; i < input.length; i++) {
-    for (let j = 0; j < Number(input[i]); j++) {
-      if (i % 2 === 0) {
-        files.push({
-					id: id++,
-					size: Number(input[i]),
-				});
-      } else {
-        files.push({
-					id: null,
-					size: Number(input[i]),
-				});
-      }
-    }
-  }
-
-	
-}
+export function part2(input) {}
