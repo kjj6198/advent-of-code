@@ -57,16 +57,17 @@ function simulateRobotMovement(warehouse, moves) {
         robotY += dy;
       }
     }
+  }
 
-    for (let y = 0; y < warehouse.length; y++) {
-      for (let x = 0; x < warehouse[0].length; x++) {
-        if (x === robotX && y === robotY) {
-          process.stdout.write("@");
-          continue;
-        }
-        process.stdout.write(warehouse[y][x]);
+  for (let y = 0; y < warehouse.length; y++) {
+    for (let x = 0; x < warehouse[0].length; x++) {
+      if (x === robotX && y === robotY) {
+        process.stdout.write("@");
+        continue;
       }
+      process.stdout.write(warehouse[y][x]);
     }
+    console.log();
   }
 
   // Calculate GPS coordinates
@@ -74,7 +75,7 @@ function simulateRobotMovement(warehouse, moves) {
 
   for (let i = 0; i < warehouse.length; i++) {
     for (let j = 0; j < warehouse[i].length; j++) {
-      if (warehouse[i][j] === "O") {
+      if (warehouse[i][j] === "O" || warehouse[i][j] === "[") {
         gpsSum += 100 * i + j;
       }
     }
@@ -88,5 +89,5 @@ export function part1(input) {
   moves = moves.trim().split("\n").join("");
   const gpsSum = simulateRobotMovement(warehouse, moves);
 
-  return [gpsSum];
+  return [gpsSum, [warehouse, moves]];
 }
